@@ -46,9 +46,17 @@ def update_one_video(video_id):
     video = validate_video_id(video_id)
     request_body = request.get_json()
 
-    video.title = request_body["title"]
-    video.release_date = request_body["release_date"]
-    video.total_inventory = request_body["total_inventory"]
+    try:
+        video.title = request_body["title"]
+        video.release_date = request_body["release_date"]
+        video.total_inventory = request_body["total_inventory"]
+    ###########
+    ###########
+    ##########
+    #TODO: refactor this out of Video model, into sep fn in routes
+    except KeyError as e:
+        key = str(e).strip("\'")
+        abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
 
     db.session.commit()
     return make_response(jsonify({"message": "Video ID #{video_id} successfully updated"}), 200)
