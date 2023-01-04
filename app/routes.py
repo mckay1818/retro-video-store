@@ -13,9 +13,9 @@ def validate_video_id(video_id):
         abort(make_response(jsonify({"message": f"Video {video_id} is invalid"}), 400))
 
     video = Video.query.get(video_id)
-
     if not video:
         abort(make_response(jsonify({"message": f"Video {video_id} was not found"}), 404))
+    return video
 
 @videos_bp.route("", methods=["POST"])
 def create_video():
@@ -25,7 +25,7 @@ def create_video():
     db.session.add(new_video)
     db.session.commit()
 
-    return make_response(jsonify(f"Video {new_video.title} successfully created."), 201)
+    return new_video.to_dict(), 201
 
 @videos_bp.route("", methods=["GET"])
 def get_all_videos():
@@ -59,4 +59,13 @@ def update_one_video(video_id):
         abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
 
     db.session.commit()
-    return make_response(jsonify({"message": "Video ID #{video_id} successfully updated"}), 200)
+    return video.to_dict(), 200
+
+@videos_bp.route("/<video_id>", methods=["DELETE"])
+def delete_one_video(video_id):
+    video = validate_video_id(video_id)
+
+    db.session.delete(video)
+    db.session.commit()
+
+    return video.to_dict(), 200
