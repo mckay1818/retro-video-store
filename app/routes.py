@@ -10,12 +10,12 @@ def validate_video_id(video_id):
     try:
         video_id = int(video_id)
     except:
-        abort(make_response(jsonify({"message": "Video ID {video_id} invalid"}), 400))
+        abort(make_response(jsonify({"message": f"Video {video_id} is invalid"}), 400))
 
     video = Video.query.get(video_id)
 
     if not video:
-        abort(make_response(jsonify({"message": "Video ID #{video_id} not found"}), 404))
+        abort(make_response(jsonify({"message": f"Video {video_id} was not found"}), 404))
 
 @videos_bp.route("", methods=["POST"])
 def create_video():

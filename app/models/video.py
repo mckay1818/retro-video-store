@@ -1,4 +1,5 @@
 from app import db
+from flask import abort, make_response, jsonify
 
 class Video(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,5 +17,9 @@ class Video(db.Model):
 
     @classmethod
     def from_dict(cls, video_data):
-        new_video = Video(title=video_data["title"], release_date=video_data["release_date"], total_inventory=video_data["total_inventory"])
+        try:
+            new_video = Video(title=video_data["title"], release_date=video_data["release_date"], total_inventory=video_data["total_inventory"])
+        except KeyError as e:
+            key = str(e).strip("\'")
+            abort(make_response(jsonify({"details": f"Request body must include {key}"), 400))
         return new_video
