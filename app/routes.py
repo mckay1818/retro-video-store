@@ -32,4 +32,4 @@ def create_one_customer():
     db.session.add(new_customer)
     db.session.commit()
 
-    return make_response({"id": {new_customer.id}},201)
+    return make_response({"id": f"{new_customer.id}"},201)
