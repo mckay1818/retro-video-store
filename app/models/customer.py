@@ -5,5 +5,5 @@ class Customer(db.Model):
     name = db.Column(db.String)
     postal_code = db.Column(db.String)
     phone = db.Column(db.String)
-    registered_at = db.Column(db.DateTime)
-    videos_checked_out_count = db.Column(db.Integer)
+    
+
