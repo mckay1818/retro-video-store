@@ -1,11 +1,13 @@
 from app import db
 from app.models.customer import Customer
 from app.models.video import Video
+from app.models.rental import Rental
 from flask import Blueprint, jsonify, abort, make_response, request
 
 # Define Blueprints
 videos_bp = Blueprint("videos", __name__, url_prefix="/videos")
 customers_bp = Blueprint("customers", __name__, url_prefix="/customers")
+rentals_bp = Blueprint("rentals", __name__, url_prefix="/rentals")
 
 # Validation Helper Fns
 def validate_model_data_and_create_obj(cls, model_data):
