@@ -6,6 +6,7 @@ class Customer(db.Model):
     registered_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False)
     postal_code = db.Column(db.String)
     phone = db.Column(db.String)
+    rentals = db.relationship("Rental", secondary="customer_video", back_populates="customers")
     
     def to_dict(self):
         return {
