@@ -1,12 +1,13 @@
 from app import db
 from flask import abort, make_response, jsonify
+from sqlalchemy.orm import relationship
 
 class Video(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     release_date = db.Column(db.DateTime)
     total_inventory = db.Column(db.Integer)
-    rentals = db.relationship("Rental", secondary="customer_video", back_populates="videos")
+    rentals = db.relationship("Rental", back_populates="video")
 
 
     def to_dict(self):
