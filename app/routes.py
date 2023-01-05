@@ -25,6 +25,24 @@ def validate_model_data_and_create_obj(cls, model_data):
             abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
     return new_obj
 
+@customers_bp.route("",methods = ["GET"])
+def read_all_customers():
+    customers = Customer.query.all()
+    customers_response = []
+    for customer in customers:
+        customers_response.append(customer.to_dict())
+    return jsonify(customers_response)
+
+@customers_bp.route("", methods = ["POST"])
+def create_one_customer():
+    request_body = request.get_json()
+    new_customer = validate_model_data_and_create_obj(Customer, request_body)
+
+    db.session.add(new_customer)
+    db.session.commit()
+
+    return new_customer.to_dict(), 201 
+
 @videos_bp.route("", methods=["POST"])
 def create_video():
     request_body = request.get_json()
