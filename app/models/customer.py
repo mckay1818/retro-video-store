@@ -3,6 +3,7 @@ from app import db
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+
     registered_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False)
     postal_code = db.Column(db.String)
     phone = db.Column(db.String)
@@ -21,3 +22,4 @@ class Customer(db.Model):
         postal_code = customer_data["postal_code"],
         phone = customer_data["phone"])
         return new_customer
+
