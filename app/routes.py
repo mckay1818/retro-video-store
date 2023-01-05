@@ -25,6 +25,22 @@ def validate_model_data_and_create_obj(cls, model_data):
             abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
     return new_obj
 
+def validate_model(cls, model_id):
+    
+    try:
+        model_id = int(model_id)
+    except:
+        # handling invalid planet id type
+        abort(make_response({"message":f"{cls.__name__} {model_id} invalid"}, 400))
+
+    # return planet data if id in db
+    model = cls.query.get(model_id)
+
+    # handle nonexistant planet id
+    if not model:
+        abort(make_response({"message":f"{cls.__name__} {model_id} was not found"}, 404))
+    return model
+
 @customers_bp.route("",methods = ["GET"])
 def read_all_customers():
     customers = Customer.query.all()
@@ -32,6 +48,11 @@ def read_all_customers():
     for customer in customers:
         customers_response.append(customer.to_dict())
     return jsonify(customers_response)
+
+@customers_bp.route("/<customer_id>", methods=["GET"])
+def get_one_customer(customer_id):
+    customer = validate_model(Customer, customer_id)
+    return customer.to_dict(), 200
 
 @customers_bp.route("", methods = ["POST"])
 def create_one_customer():
