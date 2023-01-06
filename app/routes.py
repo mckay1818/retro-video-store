@@ -34,6 +34,10 @@ def validate_model(cls, model_id):
         abort(make_response({"message":f"{cls.__name__} {model_id} was not found"}, 404))
     return model
 
+# def sorted_rentals_query(sort_request):
+    
+
+
 
 ##################
 # CUSTOMER ROUTES #
@@ -53,7 +57,11 @@ def create_one_customer():
 # GET
 @customers_bp.route("",methods = ["GET"])
 def read_all_customers():
-    customers = Customer.query.all()
+    sort_query = request.args.get("sort")
+    if sort_query == "name" or sort_query == "registered_at" or sort_query == "postal_code":
+        customers = Customer.query.order_by(sort_query)
+    else:
+        customers = Customer.query.all()
     customers_response = []
     for customer in customers:
         customers_response.append(customer.to_dict())
@@ -67,10 +75,21 @@ def get_one_customer(customer_id):
 @customers_bp.route("/<customer_id>/rentals", methods=["GET"])
 def get_all_rentals_for_one_customer(customer_id):
     customer = validate_model(Customer, customer_id)
+    sort_query = request.args.get("sort")
+    # if sort_query:
+    #     customers = Customer.query.order_by(sort_query)
+    # else:
+    #     customers = Customer.query.all()
 
     rentals_response = []
     for rental in customer.rentals:
         rentals_response.append(rental.to_dict())
+        
+
+    if sort_query == "title" or sort_query == "release_date":
+        rentals_response = sorted(rentals_response, key=lambda rental: rental[sort_query])
+    # else:
+    #     rentals_response = sorted(rentals_response, key=lambda rental: rental[id])
 
     return jsonify(rentals_response)
     
@@ -123,7 +142,6 @@ def create_video():
 
 @videos_bp.route("", methods=["GET"])
 def get_all_videos():
-    #add logic for filtering by query params
     videos = Video.query.all()
     videos_response = []
     for video in videos:
