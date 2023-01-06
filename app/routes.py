@@ -66,10 +66,13 @@ def get_one_customer(customer_id):
 
 @customers_bp.route("/<customer_id>/rentals", methods=["GET"])
 def get_all_rentals_for_one_customer(customer_id):
-    customer_id = validate_model(Customer, customer_id)
+    customer = validate_model(Customer, customer_id)
 
     rentals_response = []
-    for rental in
+    for rental in customer.rentals:
+        rentals_response.append(rental.to_dict())
+
+    return jsonify(rentals_response)
     
 
 # PUT
