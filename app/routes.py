@@ -10,15 +10,15 @@ customers_bp = Blueprint("customers", __name__, url_prefix="/customers")
 rentals_bp = Blueprint("rentals", __name__, url_prefix="/rentals")
 
 # Validation Helper Fns
-def validate_model_data_and_create_obj(cls, model_data):
+def validate_request_data_and_create_obj(cls, request_data):
     try:
-        new_obj = cls.from_dict(model_data)
+        new_obj = cls.from_dict(request_data)
     except KeyError as e:
             key = str(e).strip("\'")
             abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
     return new_obj
 
-def validate_model_id(cls, model_id):
+def validate_model(cls, model_id):
     
     try:
         model_id = int(model_id)
@@ -39,6 +39,17 @@ def validate_model_id(cls, model_id):
 # CUSTOMER ROUTES #
 ##################
 
+# POST
+@customers_bp.route("", methods = ["POST"])
+def create_one_customer():
+    request_body = request.get_json()
+    new_customer = validate_request_data_and_create_obj(Customer, request_body)
+
+    db.session.add(new_customer)
+    db.session.commit()
+
+    return new_customer.to_dict(), 201
+
 # GET
 @customers_bp.route("",methods = ["GET"])
 def read_all_customers():
@@ -50,24 +61,24 @@ def read_all_customers():
 
 @customers_bp.route("/<customer_id>", methods=["GET"])
 def get_one_customer(customer_id):
-    customer = validate_model_id(Customer, customer_id)
+    customer = validate_model(Customer, customer_id)
     return customer.to_dict()
 
-# POST
-@customers_bp.route("", methods = ["POST"])
-def create_one_customer():
-    request_body = request.get_json()
-    new_customer = validate_model_data_and_create_obj(Customer, request_body)
+@customers_bp.route("/<customer_id>/rentals", methods=["GET"])
+def get_all_rentals_for_one_customer(customer_id):
+    customer = validate_model(Customer, customer_id)
 
-    db.session.add(new_customer)
-    db.session.commit()
+    rentals_response = []
+    for rental in customer.rentals:
+        rentals_response.append(rental.to_dict())
 
-    return new_customer.to_dict(), 201
+    return jsonify(rentals_response)
+    
 
 # PUT
 @customers_bp.route("/<customer_id>", methods=["PUT"]) 
 def update_one_customer(customer_id):
-    customer = validate_model_id(Customer, customer_id)
+    customer = validate_model(Customer, customer_id)
     request_body = request.get_json()
     try:
         customer.name = request_body["name"]
@@ -90,7 +101,7 @@ def update_one_customer(customer_id):
 # DELETE
 @customers_bp.route("/<customer_id>", methods=["DELETE"])
 def delete_one_customer(customer_id):
-    customer = validate_model_id(Customer,customer_id)
+    customer = validate_model(Customer,customer_id)
     db.session.delete(customer)
     db.session.commit()
     return customer.to_dict()
@@ -103,7 +114,7 @@ def delete_one_customer(customer_id):
 @videos_bp.route("", methods=["POST"])
 def create_video():
     request_body = request.get_json()
-    new_video = validate_model_data_and_create_obj(Video, request_body)
+    new_video = validate_request_data_and_create_obj(Video, request_body)
 
     db.session.add(new_video)
     db.session.commit()
@@ -121,12 +132,13 @@ def get_all_videos():
 
 @videos_bp.route("/<video_id>", methods=["GET"])
 def get_one_video(video_id):
-    video = validate_model_id(Video, video_id)
+    video = validate_model(Video, video_id)
     return video.to_dict()
+
 
 @videos_bp.route("/<video_id>", methods=["PUT"]) 
 def update_one_video(video_id):
-    video = validate_model_id(Video, video_id)
+    video = validate_model(Video, video_id)
     request_body = request.get_json()
     try:
         video.title = request_body["title"]
@@ -143,9 +155,50 @@ def update_one_video(video_id):
 
 @videos_bp.route("/<video_id>", methods=["DELETE"])
 def delete_one_video(video_id):
-    video = validate_model_id(Video, video_id)
+    video = validate_model(Video, video_id)
 
     db.session.delete(video)
     db.session.commit()
 
     return video.to_dict(), 200
+
+
+##################
+##  RENTAL ROUTES  ##
+##################
+
+@rentals_bp.route("/check-out", methods=["POST"])
+def create_one_rental():
+    request_body = request.get_json()
+
+    # rental request MUST have customer_id and video_id included
+    try:
+        video_id = request_body["video_id"]
+        customer_id = request_body["customer_id"]
+    except KeyError as e:
+        key = str(e).strip("\'")
+        abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
+
+    rental_customer = validate_model(Customer, customer_id)
+    rental_video = validate_model(Video, video_id)
+    videos_checked_out_count = rental_customer.rental_count() + 1
+    available_inventory = rental_video.available_inventory() - 1
+
+    if available_inventory < 0:
+        return make_response({"message": "Could not perform checkout"}), 400
+
+    new_rental = Rental(
+        customer_id=customer_id, 
+        video_id=video_id,
+        )
+
+    db.session.add(new_rental)
+    db.session.commit()
+
+    return {
+        "video_id": new_rental.video_id,
+        "customer_id": new_rental.customer_id,
+        "videos_checked_out_count": videos_checked_out_count,
+        "available_inventory": available_inventory,
+        "due_date": new_rental.due_date
+        }, 200

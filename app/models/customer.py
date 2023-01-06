@@ -17,10 +17,17 @@ class Customer(db.Model):
             "phone": self.phone
         }
 
+    def rental_count(self):
+        count = 0
+        for rental in self.rentals:
+            count += 1
+        return count
+
     @classmethod
     def from_dict(cls, customer_data):
         new_customer = Customer(name=customer_data["name"],
         postal_code = customer_data["postal_code"],
         phone = customer_data["phone"])
         return new_customer
+
 
