@@ -166,16 +166,17 @@ def create_one_rental():
         key = str(e).strip("\'")
         abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
 
-    rental_customer = validate_model_data_and_create_obj(Customer, customer_id)
-    rental_video = validate_model_data_and_create_obj(Video, video_id)
-    videos_checked_out_count = Customer.rental_count() - 1
-    available_inventory = Video.available_inventory() - 1
+    rental_customer = validate_model_id(Customer, customer_id)
+    rental_video = validate_model_id(Video, video_id)
+    videos_checked_out_count = rental_customer.rental_count() + 1
+    available_inventory = rental_video.available_inventory() - 1
+
+    if available_inventory < 0:
+        return make_response({"message": "Could not perform checkout"}), 400
 
     new_rental = Rental(
         customer_id=customer_id, 
         video_id=video_id,
-        videos_checked_out_count=videos_checked_out_count,
-        available_inventory=available_inventory
         )
 
     db.session.add(new_rental)
@@ -187,7 +188,7 @@ def create_one_rental():
         "videos_checked_out_count": videos_checked_out_count,
         "available_inventory": available_inventory,
         "due_date": new_rental.due_date
-        }, 201
+        }, 200
 
 
 
