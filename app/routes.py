@@ -149,3 +149,66 @@ def delete_one_video(video_id):
     db.session.commit()
 
     return video.to_dict(), 200
+
+
+##################
+##  RENTAL ROUTES  ##
+##################
+
+@rentals_bp.route("/check-out", methods=["POST"])
+def create_one_rental():
+    request_body = request.get_json()
+
+    try:
+        video_id = request_body["video_id"]
+        customer_id = request_body["customer_id"]
+    except KeyError as e:
+        key = str(e).strip("\'")
+        abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
+
+    rental_customer = validate_model_data_and_create_obj(Customer, customer_id)
+    rental_video = validate_model_data_and_create_obj(Video, video_id)
+    videos_checked_out_count = Customer.rental_count() - 1
+    available_inventory = Video.available_inventory() - 1
+
+    new_rental = Rental(
+        customer_id=customer_id, 
+        video_id=video_id,
+        videos_checked_out_count=videos_checked_out_count,
+        available_inventory=available_inventory
+        )
+
+    db.session.add(new_rental)
+    db.session.commit()
+
+    return {
+        "video_id": new_rental.video_id,
+        "customer_id": new_rental.customer_id,
+        "videos_checked_out_count": videos_checked_out_count,
+        "available_inventory": available_inventory,
+        "due_date": new_rental.due_date
+        }, 201
+
+
+
+# @videos_bp.route("", methods=["POST"])
+# def create_video():
+#     request_body = request.get_json()
+#     new_video = validate_model_data_and_create_obj(Video, request_body)
+
+#     db.session.add(new_video)
+#     db.session.commit()
+
+#     return new_video.to_dict(), 201
+
+
+# # POST
+# @customers_bp.route("", methods = ["POST"])
+# def create_one_customer():
+#     request_body = request.get_json()
+#     new_customer = validate_model_data_and_create_obj(Customer, request_body)
+
+#     db.session.add(new_customer)
+#     db.session.commit()
+
+#     return new_customer.to_dict(), 201
