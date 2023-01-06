@@ -76,10 +76,6 @@ def get_one_customer(customer_id):
 def get_all_rentals_for_one_customer(customer_id):
     customer = validate_model(Customer, customer_id)
     sort_query = request.args.get("sort")
-    # if sort_query:
-    #     customers = Customer.query.order_by(sort_query)
-    # else:
-    #     customers = Customer.query.all()
 
     rentals_response = []
     for rental in customer.rentals:
@@ -88,8 +84,8 @@ def get_all_rentals_for_one_customer(customer_id):
 
     if sort_query == "title" or sort_query == "release_date":
         rentals_response = sorted(rentals_response, key=lambda rental: rental[sort_query])
-    # else:
-    #     rentals_response = sorted(rentals_response, key=lambda rental: rental[id])
+    else:
+        rentals_response = sorted(rentals_response, key=lambda rental: rental["id"])
 
     return jsonify(rentals_response)
     
@@ -152,7 +148,7 @@ def get_all_videos():
 def get_one_video(video_id):
     video = validate_model(Video, video_id)
     return video.to_dict()
-
+    
 
 @videos_bp.route("/<video_id>", methods=["PUT"]) 
 def update_one_video(video_id):
