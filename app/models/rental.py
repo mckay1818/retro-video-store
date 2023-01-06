@@ -17,7 +17,9 @@ class Rental(db.Model):
         return {
             "release_date": video.release_date,
             "title": video.title,
-            "due_date": self.due_date
+            "due_date": self.due_date,
+            "id": self.id,
+            "total_inventory": video.total_inventory
         }
 
     # @classmethod
