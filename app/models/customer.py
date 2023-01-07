@@ -13,8 +13,10 @@ class Customer(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "registered_at": self.registered_at,
             "postal_code": self.postal_code,
             "phone": self.phone
+            
         }
 
     def rental_count(self):
