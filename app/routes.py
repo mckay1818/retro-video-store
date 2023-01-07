@@ -160,7 +160,7 @@ def get_all_videos():
 def get_one_video(video_id):
     video = validate_model(Video, video_id)
     return video.to_dict()
-
+    
 
 @videos_bp.route("/<video_id>", methods=["PUT"]) 
 def update_one_video(video_id):
@@ -171,7 +171,6 @@ def update_one_video(video_id):
         video.release_date = request_body["release_date"]
         video.total_inventory = request_body["total_inventory"]
 
-    #TODO: refactor this out of Video model, into sep fn in routes
     except KeyError as e:
         key = str(e).strip("\'")
         abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
