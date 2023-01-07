@@ -75,21 +75,29 @@ def get_one_customer(customer_id):
 @customers_bp.route("/<customer_id>/rentals", methods=["GET"])
 def get_all_rentals_for_one_customer(customer_id):
     customer = validate_model(Customer, customer_id)
+    rental_query = db.session.query(Rental)
     sort_query = request.args.get("sort")
-    # if sort_query:
-    #     customers = Customer.query.order_by(sort_query)
-    # else:
-    #     customers = Customer.query.all()
+    if sort_query == "title":
+        rental_query = Rental.query.order_by(Video.title)
+    elif sort_query == "release_date":
+        rental_query = Rental.query.order_by(Video.release_date)
 
     rentals_response = []
-    for rental in customer.rentals:
-        rentals_response.append(rental.to_dict())
-        
-
-    if sort_query == "title" or sort_query == "release_date":
-        rentals_response = sorted(rentals_response, key=lambda rental: rental[sort_query])
-    # else:
-    #     rentals_response = sorted(rentals_response, key=lambda rental: rental[id])
+    for rental in (
+        rental_query
+        .join(Video)
+        .filter(Rental.customer_id == customer_id)
+        .all()
+    ):
+        video = Video.get_video_by_id(rental.video_id)
+        rentals_response.append({
+            "release_date": video.release_date,
+            "title": video.title,
+            "due_date": rental.due_date,
+            "id": rental.id,
+            "total_inventory": video.total_inventory
+        }
+)
 
     return jsonify(rentals_response)
     
