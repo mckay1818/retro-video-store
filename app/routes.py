@@ -118,12 +118,7 @@ def update_one_customer(customer_id):
         abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
     
     db.session.commit()
-    return {
-        "id" : customer.id,
-        "name": customer.name,
-        "postal_code": customer.postal_code,
-        "phone": customer.phone
-    }
+    return customer.to_dict()
 
 # DELETE
 @customers_bp.route("/<customer_id>", methods=["DELETE"])
