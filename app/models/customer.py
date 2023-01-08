@@ -20,10 +20,7 @@ class Customer(db.Model):
         }
 
     def rental_count(self):
-        count = 0
-        for rental in self.rentals:
-            count += 1
-        return count
+        return len(self.rentals)
 
     @classmethod
     def from_dict(cls, customer_data):
