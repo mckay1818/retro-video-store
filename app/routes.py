@@ -93,9 +93,7 @@ def get_all_rentals_for_one_customer(customer_id):
         rentals_response.append({
             "release_date": video.release_date,
             "title": video.title,
-            "due_date": rental.due_date,
-            "id": rental.id,
-            "total_inventory": video.total_inventory
+            "due_date": rental.due_date
         }
 )
 
@@ -112,7 +110,6 @@ def update_one_customer(customer_id):
         customer.phone = request_body["phone"]
         customer.postal_code = request_body["postal_code"]
 
-    # #TODO: refactor this out of Video model, into sep fn in routes
     except KeyError as e:
         key = str(e).strip("\'")
         abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
@@ -154,8 +151,7 @@ def get_all_videos():
 @videos_bp.route("/<video_id>", methods=["GET"])
 def get_one_video(video_id):
     video = validate_model(Video, video_id)
-    return video.to_dict()
-    
+    return video.to_dict()    
 
 @videos_bp.route("/<video_id>", methods=["PUT"]) 
 def update_one_video(video_id):
@@ -221,4 +217,33 @@ def create_one_rental():
         "videos_checked_out_count": videos_checked_out_count,
         "available_inventory": available_inventory,
         "due_date": new_rental.due_date
+        }, 200
+
+@rentals_bp.route("/check-in", methods=["POST"])
+def delete_one_rental():
+    request_body = request.get_json()
+
+    # rental request MUST have customer_id and video_id included
+    try:
+        video_id = request_body["video_id"]
+        customer_id = request_body["customer_id"]
+    except KeyError as e:
+        key = str(e).strip("\'")
+        abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
+
+    rental_customer = validate_model(Customer, customer_id)
+    rental_video = validate_model(Video, video_id)
+    videos_checked_out_count = rental_customer.rental_count() - 1
+    available_inventory = rental_video.available_inventory() + 1
+
+    rental = Rental.query.filter_by(video_id = rental_video.id, customer_id = rental_customer.id).first()
+
+    db.session.delete(rental)
+    db.session.commit()
+
+    return {
+        "video_id": rental.video_id,
+        "customer_id": rental.customer_id,
+        "videos_checked_out_count": videos_checked_out_count,
+        "available_inventory": available_inventory,
         }, 200
