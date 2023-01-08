@@ -58,10 +58,22 @@ def create_one_customer():
 @customers_bp.route("",methods = ["GET"])
 def read_all_customers():
     sort_query = request.args.get("sort")
+    page_num = request.args.get("page_num")
+    count = request.args.get("count")
     if sort_query == "name" or sort_query == "registered_at" or sort_query == "postal_code":
         customers = Customer.query.order_by(sort_query)
     else:
-        customers = Customer.query.all()
+        customers = Customer.query.order_by(Customer.id)
+    
+    
+    page_num = request.args.get("page_num")
+    count = request.args.get("count")
+
+    if page_num and page_num.isdigit() and count and count.isdigit():
+        page_num = int(page_num)
+        count = int(count)
+        customers = customers.paginate(page=page_num, per_page=count).items
+
     customers_response = []
     for customer in customers:
         customers_response.append(customer.to_dict())
