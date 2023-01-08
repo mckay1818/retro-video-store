@@ -151,7 +151,24 @@ def get_all_videos():
 @videos_bp.route("/<video_id>", methods=["GET"])
 def get_one_video(video_id):
     video = validate_model(Video, video_id)
-    return video.to_dict()    
+    return video.to_dict() 
+
+@videos_bp.route("/<video_id>/rentals", methods=["GET"])
+def get_all_rentals_for_one_customer(video_id):
+    video = validate_model(Video, video_id)
+     
+    rentals = db.session.query(Rental).join(Video).filter(Rental.video_id == video_id).all()
+    rentals_response = []
+    for rental in rentals:
+        customer = Customer.get_customer_by_id(rental.customer_id)
+        rentals_response.append({
+            "name": customer.name,
+            "phone": customer.phone,
+            "postal_code": customer.postal_code,
+            "due_date": rental.due_date
+        })
+
+    return jsonify(rentals_response)   
 
 @videos_bp.route("/<video_id>", methods=["PUT"]) 
 def update_one_video(video_id):
@@ -230,16 +247,18 @@ def delete_one_rental():
     except KeyError as e:
         key = str(e).strip("\'")
         abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
-
+    
     rental_customer = validate_model(Customer, customer_id)
     rental_video = validate_model(Video, video_id)
     videos_checked_out_count = rental_customer.rental_count() - 1
     available_inventory = rental_video.available_inventory() + 1
 
     rental = Rental.query.filter_by(video_id = rental_video.id, customer_id = rental_customer.id).first()
-
-    db.session.delete(rental)
-    db.session.commit()
+    if rental:
+        db.session.delete(rental)
+        db.session.commit()
+    else: 
+        abort(make_response({"message": f"No outstanding rentals for customer {customer_id} and video {video_id}"}, 400))
 
     return {
         "video_id": rental.video_id,

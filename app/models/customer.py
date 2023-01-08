@@ -29,4 +29,9 @@ class Customer(db.Model):
         phone = customer_data["phone"])
         return new_customer
 
+    @classmethod
+    def get_customer_by_id(cls, id):
+        customer = cls.query.get(id)
+        return customer
+
 
