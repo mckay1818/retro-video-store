@@ -6,9 +6,9 @@ from app.models.video import Video
 class Rental(db.Model):
     __tablename__ = "customer_video"
     id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"))
     customer = relationship("Customer", back_populates="rentals")
-    video_id = db.Column(db.Integer, db.ForeignKey("video.id"), nullable=False)
+    video_id = db.Column(db.Integer, db.ForeignKey("video.id"))
     video = relationship("Video", back_populates="rentals")
     due_date = db.Column(db.DateTime(timezone=True), default=db.func.now() + timedelta(days=7), nullable=False)
 

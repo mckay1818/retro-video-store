@@ -1,8 +1,9 @@
-"""deleted db and reinitizalied migrations
+"""reload the db aft
+er removing the Nullable = False in customer model
 
-Revision ID: 216bb3b525a3
+Revision ID: fbf15e28580a
 Revises: 
-Create Date: 2023-01-06 14:26:02.415363
+Create Date: 2023-01-07 21:39:04.872194
 
 """
 from alembic import op
@@ -10,7 +11,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '216bb3b525a3'
+revision = 'fbf15e28580a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,8 +36,8 @@ def upgrade():
     )
     op.create_table('customer_video',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('customer_id', sa.Integer(), nullable=False),
-    sa.Column('video_id', sa.Integer(), nullable=False),
+    sa.Column('customer_id', sa.Integer(), nullable=True),
+    sa.Column('video_id', sa.Integer(), nullable=True),
     sa.Column('due_date', sa.DateTime(timezone=True), nullable=False),
     sa.ForeignKeyConstraint(['customer_id'], ['customer.id'], ),
     sa.ForeignKeyConstraint(['video_id'], ['video.id'], ),
