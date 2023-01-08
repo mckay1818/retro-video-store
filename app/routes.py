@@ -93,9 +93,7 @@ def get_all_rentals_for_one_customer(customer_id):
         rentals_response.append({
             "release_date": video.release_date,
             "title": video.title,
-            "due_date": rental.due_date,
-            "id": rental.id,
-            "total_inventory": video.total_inventory
+            "due_date": rental.due_date
         }
 )
 
@@ -112,18 +110,12 @@ def update_one_customer(customer_id):
         customer.phone = request_body["phone"]
         customer.postal_code = request_body["postal_code"]
 
-    # #TODO: refactor this out of Video model, into sep fn in routes
     except KeyError as e:
         key = str(e).strip("\'")
         abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
     
     db.session.commit()
-    return {
-        "id" : customer.id,
-        "name": customer.name,
-        "postal_code": customer.postal_code,
-        "phone": customer.phone
-    }
+    return customer.to_dict()
 
 # DELETE
 @customers_bp.route("/<customer_id>", methods=["DELETE"])
@@ -159,8 +151,24 @@ def get_all_videos():
 @videos_bp.route("/<video_id>", methods=["GET"])
 def get_one_video(video_id):
     video = validate_model(Video, video_id)
-    return video.to_dict()
-    
+    return video.to_dict() 
+
+@videos_bp.route("/<video_id>/rentals", methods=["GET"])
+def get_all_rentals_for_one_customer(video_id):
+    video = validate_model(Video, video_id)
+     
+    rentals = db.session.query(Rental).join(Video).filter(Rental.video_id == video_id).all()
+    rentals_response = []
+    for rental in rentals:
+        customer = Customer.get_customer_by_id(rental.customer_id)
+        rentals_response.append({
+            "name": customer.name,
+            "phone": customer.phone,
+            "postal_code": customer.postal_code,
+            "due_date": rental.due_date
+        })
+
+    return jsonify(rentals_response)   
 
 @videos_bp.route("/<video_id>", methods=["PUT"]) 
 def update_one_video(video_id):
@@ -226,4 +234,35 @@ def create_one_rental():
         "videos_checked_out_count": videos_checked_out_count,
         "available_inventory": available_inventory,
         "due_date": new_rental.due_date
+        }, 200
+
+@rentals_bp.route("/check-in", methods=["POST"])
+def delete_one_rental():
+    request_body = request.get_json()
+
+    # rental request MUST have customer_id and video_id included
+    try:
+        video_id = request_body["video_id"]
+        customer_id = request_body["customer_id"]
+    except KeyError as e:
+        key = str(e).strip("\'")
+        abort(make_response(jsonify({"details": f"Request body must include {key}."}), 400))
+    
+    rental_customer = validate_model(Customer, customer_id)
+    rental_video = validate_model(Video, video_id)
+    videos_checked_out_count = rental_customer.rental_count() - 1
+    available_inventory = rental_video.available_inventory() + 1
+
+    rental = Rental.query.filter_by(video_id = rental_video.id, customer_id = rental_customer.id).first()
+    if rental:
+        db.session.delete(rental)
+        db.session.commit()
+    else: 
+        abort(make_response({"message": f"No outstanding rentals for customer {customer_id} and video {video_id}"}, 400))
+
+    return {
+        "video_id": rental.video_id,
+        "customer_id": rental.customer_id,
+        "videos_checked_out_count": videos_checked_out_count,
+        "available_inventory": available_inventory,
         }, 200

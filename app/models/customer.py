@@ -13,15 +13,14 @@ class Customer(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "registered_at": self.registered_at,
             "postal_code": self.postal_code,
             "phone": self.phone
+            
         }
 
     def rental_count(self):
-        count = 0
-        for rental in self.rentals:
-            count += 1
-        return count
+        return len(self.rentals)
 
     @classmethod
     def from_dict(cls, customer_data):
@@ -29,5 +28,10 @@ class Customer(db.Model):
         postal_code = customer_data["postal_code"],
         phone = customer_data["phone"])
         return new_customer
+
+    @classmethod
+    def get_customer_by_id(cls, id):
+        customer = cls.query.get(id)
+        return customer
 
 
