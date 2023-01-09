@@ -75,7 +75,7 @@ def read_all_customers():
         customers = customers.paginate(page=page_num, per_page=count).items
     elif count and count.isdigit():
         count = int(count)
-        customers = customers.paginate(page=page_num, per_page=count).items
+        customers = customers.paginate(page=1, per_page=count).items
 
     customers_response = []
     for customer in customers:
