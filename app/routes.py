@@ -73,6 +73,9 @@ def read_all_customers():
         page_num = int(page_num)
         count = int(count)
         customers = customers.paginate(page=page_num, per_page=count).items
+    elif count and count.isdigit():
+        count = int(count)
+        customers = customers.paginate(page=page_num, per_page=count).items
 
     customers_response = []
     for customer in customers:
@@ -103,9 +106,11 @@ def get_all_rentals_for_one_customer(customer_id):
     ):
         video = Video.get_video_by_id(rental.video_id)
         rentals_response.append({
+            "id": video.id,
             "release_date": video.release_date,
             "title": video.title,
-            "due_date": rental.due_date
+            "due_date": rental.due_date,
+            "total_inventory": video.total_inventory
         }
 )
 
@@ -174,6 +179,7 @@ def get_all_rentals_for_one_customer(video_id):
     for rental in rentals:
         customer = Customer.get_customer_by_id(rental.customer_id)
         rentals_response.append({
+            "id": customer.id,
             "name": customer.name,
             "phone": customer.phone,
             "postal_code": customer.postal_code,
