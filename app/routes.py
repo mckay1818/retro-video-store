@@ -58,8 +58,6 @@ def create_one_customer():
 @customers_bp.route("",methods = ["GET"])
 def read_all_customers():
     sort_query = request.args.get("sort")
-    page_num = request.args.get("page_num")
-    count = request.args.get("count")
     if sort_query == "name" or sort_query == "registered_at" or sort_query == "postal_code":
         customers = Customer.query.order_by(sort_query)
     else:
@@ -90,20 +88,26 @@ def get_one_customer(customer_id):
 @customers_bp.route("/<customer_id>/rentals", methods=["GET"])
 def get_all_rentals_for_one_customer(customer_id):
     customer = validate_model(Customer, customer_id)
-    rental_query = db.session.query(Rental)
+    rental_query = db.session.query(Rental).join(Video).filter(Rental.customer_id == customer_id)
     sort_query = request.args.get("sort")
     if sort_query == "title":
-        rental_query = Rental.query.order_by(Video.title)
+        rental_query = rental_query.order_by(Video.title)
     elif sort_query == "release_date":
-        rental_query = Rental.query.order_by(Video.release_date)
+        rental_query = rental_query.order_by(Video.release_date)
+    
+    page_num = request.args.get("page_num")
+    count = request.args.get("count")
+
+    if page_num and page_num.isdigit() and count and count.isdigit():
+        page_num = int(page_num)
+        count = int(count)
+        rental_query = rental_query.paginate(page=page_num, per_page=count).items
+    elif count and count.isdigit():
+        count = int(count)
+        rental_query = rental_query.paginate(page=1, per_page=count).items
 
     rentals_response = []
-    for rental in (
-        rental_query
-        .join(Video)
-        .filter(Rental.customer_id == customer_id)
-        .all()
-    ):
+    for rental in rental_query:
         video = Video.get_video_by_id(rental.video_id)
         rentals_response.append({
             "id": video.id,
