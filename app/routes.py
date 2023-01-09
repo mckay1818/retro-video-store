@@ -176,11 +176,27 @@ def get_one_video(video_id):
 
 @videos_bp.route("/<video_id>/rentals", methods=["GET"])
 def get_all_rentals_for_one_customer(video_id):
-    video = validate_model(Video, video_id)
-     
-    rentals = db.session.query(Rental).join(Video).filter(Rental.video_id == video_id).all()
+    video = validate_model(Video, video_id) 
+    rental_query = db.session.query(Rental).join(Video).filter(Rental.video_id == video_id)
+    
+    sort_query = request.args.get("sort")
+    if sort_query == "name":
+        rental_query = rental_query.order_by(Customer.name)
+    elif sort_query == "postal_code":
+        rental_query = rental_query.order_by(Customer.postcal_code)
+    
+    page_num = request.args.get("page_num")
+    count = request.args.get("count")
+    if page_num and page_num.isdigit() and count and count.isdigit():
+        page_num = int(page_num)
+        count = int(count)
+        rental_query = rental_query.paginate(page=page_num, per_page=count).items
+    elif count and count.isdigit():
+        count = int(count)
+        rental_query = rental_query.paginate(page=1, per_page=count).items
+    
     rentals_response = []
-    for rental in rentals:
+    for rental in rental_query:
         customer = Customer.get_customer_by_id(rental.customer_id)
         rentals_response.append({
             "id": customer.id,
