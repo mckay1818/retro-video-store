@@ -177,13 +177,13 @@ def get_one_video(video_id):
 @videos_bp.route("/<video_id>/rentals", methods=["GET"])
 def get_all_rentals_for_one_customer(video_id):
     video = validate_model(Video, video_id) 
-    rental_query = db.session.query(Rental).join(Video).filter(Rental.video_id == video_id)
+    rental_query = db.session.query(Rental).join(Customer).filter(Rental.video_id == video_id)
     
     sort_query = request.args.get("sort")
     if sort_query == "name":
         rental_query = rental_query.order_by(Customer.name)
     elif sort_query == "postal_code":
-        rental_query = rental_query.order_by(Customer.postcal_code)
+        rental_query = rental_query.order_by(Customer.postal_code)
     
     page_num = request.args.get("page_num")
     count = request.args.get("count")
