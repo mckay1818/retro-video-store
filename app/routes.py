@@ -61,7 +61,20 @@ def read_all_customers():
     if sort_query == "name" or sort_query == "registered_at" or sort_query == "postal_code":
         customers = Customer.query.order_by(sort_query)
     else:
-        customers = Customer.query.all()
+        customers = Customer.query.order_by(Customer.id)
+    
+    
+    page_num = request.args.get("page_num")
+    count = request.args.get("count")
+
+    if page_num and page_num.isdigit() and count and count.isdigit():
+        page_num = int(page_num)
+        count = int(count)
+        customers = customers.paginate(page=page_num, per_page=count).items
+    elif count and count.isdigit():
+        count = int(count)
+        customers = customers.paginate(page=1, per_page=count).items
+
     customers_response = []
     for customer in customers:
         customers_response.append(customer.to_dict())
@@ -75,25 +88,33 @@ def get_one_customer(customer_id):
 @customers_bp.route("/<customer_id>/rentals", methods=["GET"])
 def get_all_rentals_for_one_customer(customer_id):
     customer = validate_model(Customer, customer_id)
-    rental_query = db.session.query(Rental)
+    rental_query = db.session.query(Rental).join(Video).filter(Rental.customer_id == customer_id)
     sort_query = request.args.get("sort")
     if sort_query == "title":
-        rental_query = Rental.query.order_by(Video.title)
+        rental_query = rental_query.order_by(Video.title)
     elif sort_query == "release_date":
-        rental_query = Rental.query.order_by(Video.release_date)
+        rental_query = rental_query.order_by(Video.release_date)
+    
+    page_num = request.args.get("page_num")
+    count = request.args.get("count")
+
+    if page_num and page_num.isdigit() and count and count.isdigit():
+        page_num = int(page_num)
+        count = int(count)
+        rental_query = rental_query.paginate(page=page_num, per_page=count).items
+    elif count and count.isdigit():
+        count = int(count)
+        rental_query = rental_query.paginate(page=1, per_page=count).items
 
     rentals_response = []
-    for rental in (
-        rental_query
-        .join(Video)
-        .filter(Rental.customer_id == customer_id)
-        .all()
-    ):
+    for rental in rental_query:
         video = Video.get_video_by_id(rental.video_id)
         rentals_response.append({
+            "id": video.id,
             "release_date": video.release_date,
             "title": video.title,
-            "due_date": rental.due_date
+            "due_date": rental.due_date,
+            "total_inventory": video.total_inventory
         }
 )
 
@@ -155,13 +176,30 @@ def get_one_video(video_id):
 
 @videos_bp.route("/<video_id>/rentals", methods=["GET"])
 def get_all_rentals_for_one_customer(video_id):
-    video = validate_model(Video, video_id)
-     
-    rentals = db.session.query(Rental).join(Video).filter(Rental.video_id == video_id).all()
+    video = validate_model(Video, video_id) 
+    rental_query = db.session.query(Rental).join(Customer).filter(Rental.video_id == video_id)
+    
+    sort_query = request.args.get("sort")
+    if sort_query == "name":
+        rental_query = rental_query.order_by(Customer.name)
+    elif sort_query == "postal_code":
+        rental_query = rental_query.order_by(Customer.postal_code)
+    
+    page_num = request.args.get("page_num")
+    count = request.args.get("count")
+    if page_num and page_num.isdigit() and count and count.isdigit():
+        page_num = int(page_num)
+        count = int(count)
+        rental_query = rental_query.paginate(page=page_num, per_page=count).items
+    elif count and count.isdigit():
+        count = int(count)
+        rental_query = rental_query.paginate(page=1, per_page=count).items
+    
     rentals_response = []
-    for rental in rentals:
+    for rental in rental_query:
         customer = Customer.get_customer_by_id(rental.customer_id)
         rentals_response.append({
+            "id": customer.id,
             "name": customer.name,
             "phone": customer.phone,
             "postal_code": customer.postal_code,
