@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    registered_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False)
+    registered_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
     postal_code = db.Column(db.String)
     phone = db.Column(db.String)
     rentals = db.relationship("Rental", back_populates="customer")
