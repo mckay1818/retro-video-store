@@ -4,6 +4,7 @@ from app.models.video import Video
 from app.models.rental import Rental
 from app.validation_fns import validate_model, validate_request_data_and_create_obj
 from flask import Blueprint, jsonify, abort, make_response, request
+import click
 
 
 videos_bp = Blueprint("videos", __name__, url_prefix="/videos")
@@ -12,6 +13,7 @@ videos_bp = Blueprint("videos", __name__, url_prefix="/videos")
 ##################
 ##  VIDEO ROUTES  ##
 ##################
+
 
 @videos_bp.route("", methods=["POST"])
 def create_video():
@@ -23,12 +25,14 @@ def create_video():
 
     return new_video.to_dict(), 201
 
+@videos_bp.cli.command('get_all_videos')
 @videos_bp.route("", methods=["GET"])
 def get_all_videos():
     videos = Video.query.all()
     videos_response = []
     for video in videos:
         videos_response.append(video.to_dict())
+    click.echo(videos_response)
     return jsonify(videos_response)
 
 @videos_bp.route("/<video_id>", methods=["GET"])

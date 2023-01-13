@@ -1,0 +1,158 @@
+Script started on Thu Jan 12 12:48:41 2023
+]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;32m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hccli[?1l>[?2004l
+]2;cli]1;clizsh: command not found: cli
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;31m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hssci ript.py[?1l>[?2004l
+]2;script.py]1;script.pyzsh: command not found: script.py
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;31m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hscript.py[9Dcli      scriptflask routes--help[12Dmyscript    [8Dflask --help[?1l>[?2004l
+]2;flask --help]1;flaskUsage: flask [OPTIONS] COMMAND [ARGS]...
+
+  A general utility script for Flask applications.
+
+  Provides commands from Flask, extensions, and the application. Loads the
+  application defined in the FLASK_APP environment variable, or from a
+  wsgi.py file. Setting the FLASK_ENV environment variable to 'development'
+  will enable debug mode.
+
+    $ export FLASK_APP=hello.py
+    $ export FLASK_ENV=development
+    $ flask run
+
+Options:
+  --version  Show the flask version
+  --help     Show this message and exit.
+
+Commands:
+  db      Perform database migrations.
+  hello
+  routes  Show the routes for the app.
+  run     Run a development server.
+  shell   Run a shell in the app context.
+  videos
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;32m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hccd ..  c  [?2004l
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;31m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hccd ..[?1l>[?2004l
+]2;cd ..]1;cd[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects]2;McKay@Adas-MacBook-Pro]1;..oper/projects]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects[0m[27m[24m[J[01;32m➜  [36mprojects[00m [K[?1h=[?2004hccd ga  c  lls[?1l>[?2004l
+]2;ls -G]1;ls[1m[36mada-hello-books-api[39;49m[0m         [1m[36mcode-coverage-exercise[39;49m[0m      [1m[36msnowbug[39;49m[0m
+[1m[36mapi-practice[39;49m[0m                [1m[36mcore-practice-git-commands[39;49m[0m  [1m[36msolar-system-api[39;49m[0m
+[1m[36mbook-review-site[39;49m[0m            [1m[36mgroup-fan-site[39;49m[0m              [1m[36mswap-meet[39;49m[0m
+[1m[36mcandy_exercise[39;49m[0m              [1m[36mhello-books-api[39;49m[0m             [1m[36mviewing-party[39;49m[0m
+[1m[36mcarnival-recipes[39;49m[0m            [1m[36mretro-video-store[39;49m[0m
+[1m[36mcode-coverage-dict-exercise[39;49m[0m [1m[36mschool_schedule[39;49m[0m
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects]2;McKay@Adas-MacBook-Pro]1;..oper/projects]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects[0m[27m[24m[J[01;32m➜  [36mprojects[00m [K[?1h=[?2004hccd group-fan-site[1m/[0m[0m [?1l>[?2004l
+]2;cd group-fan-site]1;cd[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site]2;McKay@Adas-MacBook-Pro]1;..roup-fan-site]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site[0m[27m[24m[J[01;32m➜  [36mgroup-fan-site[00m [01;34mgit:([31mmain[34m)[00m [K[?1h=[?2004hggit pull[?1l>[?2004l
+]2;git pull]1;gitremote: Enumerating objects: 11, done.[K
+remote: Counting objects:   9% (1/11)[Kremote: Counting objects:  18% (2/11)[Kremote: Counting objects:  27% (3/11)[Kremote: Counting objects:  36% (4/11)[Kremote: Counting objects:  45% (5/11)[Kremote: Counting objects:  54% (6/11)[Kremote: Counting objects:  63% (7/11)[Kremote: Counting objects:  72% (8/11)[Kremote: Counting objects:  81% (9/11)[Kremote: Counting objects:  90% (10/11)[Kremote: Counting objects: 100% (11/11)[Kremote: Counting objects: 100% (11/11), done.[K
+remote: Compressing objects:  14% (1/7)[Kremote: Compressing objects:  28% (2/7)[Kremote: Compressing objects:  42% (3/7)[Kremote: Compressing objects:  57% (4/7)[Kremote: Compressing objects:  71% (5/7)[Kremote: Compressing objects:  85% (6/7)[Kremote: Compressing objects: 100% (7/7)[Kremote: Compressing objects: 100% (7/7), done.[K
+remote: Total 11 (delta 5), reused 10 (delta 4), pack-reused 0[K
+Unpacking objects:   9% (1/11)Unpacking objects:  18% (2/11)Unpacking objects:  27% (3/11)Unpacking objects:  36% (4/11)Unpacking objects:  45% (5/11)Unpacking objects:  54% (6/11)Unpacking objects:  63% (7/11)Unpacking objects:  72% (8/11)Unpacking objects:  81% (9/11)Unpacking objects:  90% (10/11)Unpacking objects: 100% (11/11)Unpacking objects: 100% (11/11), 1.31 KiB | 83.00 KiB/s, done.
+From https://github.com/nadxelleHernandez/group-fan-site
+   2ffecee..51c98ca  main       -> origin/main
+   0f80907..696c98a  theirwork  -> origin/theirwork
+Updating 2ffecee..51c98ca
+Fast-forward
+ images/2e5c6d37_566f_4274_b62d_ebf5fcbd0722.png       | Bin [31m0[m -> [32m69724[m bytes
+ ...3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg | Bin [31m0[m -> [32m429706[m bytes
+ images/intro-1603467578.jpg                           | Bin [31m0[m -> [32m114726[m bytes
+ ...d9b9976b85fb4f8accc3a3f653dc607e8cc-s1400-c100.jpg | Bin [31m0[m -> [32m1497535[m bytes
+ images/should-you-watch-one-piece.webp                | Bin [31m0[m -> [32m129118[m bytes
+ pages/gallery.html                                    |   4 [32m+[m[31m-[m
+ pages/index.html                                      |   1 [31m-[m
+ stylesheets/gallery.css                               |  45 [32m++++++++++++++++++++++[m
+ stylesheets/styles.css                                |  19 [32m++++[m[31m-----[m
+ 9 files changed, 53 insertions(+), 16 deletions(-)
+ create mode 100644 images/2e5c6d37_566f_4274_b62d_ebf5fcbd0722.png
+ create mode 100644 images/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg
+ create mode 100644 images/intro-1603467578.jpg
+ create mode 100644 images/pr_wide-77eeed9b9976b85fb4f8accc3a3f653dc607e8cc-s1400-c100.jpg
+ create mode 100644 images/should-you-watch-one-piece.webp
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site]2;McKay@Adas-MacBook-Pro]1;..roup-fan-site]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site[0m[27m[24m[J[01;32m➜  [36mgroup-fan-site[00m [01;34mgit:([31mmain[34m)[00m [K[?1h=[?2004hccode .[?1l>[?2004l
+]2;code .]1;code[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site]2;McKay@Adas-MacBook-Pro]1;..roup-fan-site]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site[0m[27m[24m[J[01;32m➜  [36mgroup-fan-site[00m [01;34mgit:([31mmain[34m)[00m [K[?1h=[?2004hggot  g git pi ull[?1l>[?2004l
+]2;git pull]1;gitAlready up to date.
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site]2;McKay@Adas-MacBook-Pro]1;..roup-fan-site]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site[0m[27m[24m[J[01;32m➜  [36mgroup-fan-site[00m [01;34mgit:([31mmain[34m)[00m [K[?1h=[?2004hggit pull[?1l>[?2004l
+]2;git pull]1;gitremote: Enumerating objects: 15, done.[K
+remote: Counting objects:   6% (1/15)[Kremote: Counting objects:  13% (2/15)[Kremote: Counting objects:  20% (3/15)[Kremote: Counting objects:  26% (4/15)[Kremote: Counting objects:  33% (5/15)[Kremote: Counting objects:  40% (6/15)[Kremote: Counting objects:  46% (7/15)[Kremote: Counting objects:  53% (8/15)[Kremote: Counting objects:  60% (9/15)[Kremote: Counting objects:  66% (10/15)[Kremote: Counting objects:  73% (11/15)[Kremote: Counting objects:  80% (12/15)[Kremote: Counting objects:  86% (13/15)[Kremote: Counting objects:  93% (14/15)[Kremote: Counting objects: 100% (15/15)[Kremote: Counting objects: 100% (15/15), done.[K
+remote: Compressing objects:  20% (1/5)[Kremote: Compressing objects:  40% (2/5)[Kremote: Compressing objects:  60% (3/5)[Kremote: Compressing objects:  80% (4/5)[Kremote: Compressing objects: 100% (5/5)[Kremote: Compressing objects: 100% (5/5), done.[K
+remote: Total 9 (delta 5), reused 8 (delta 4), pack-reused 0[K
+Unpacking objects:  11% (1/9)Unpacking objects:  22% (2/9)Unpacking objects:  33% (3/9)Unpacking objects:  44% (4/9)Unpacking objects:  55% (5/9)Unpacking objects:  66% (6/9)Unpacking objects:  77% (7/9)Unpacking objects:  88% (8/9)Unpacking objects: 100% (9/9)Unpacking objects: 100% (9/9), 900 bytes | 100.00 KiB/s, done.
+From https://github.com/nadxelleHernandez/group-fan-site
+   51c98ca..113860a  main       -> origin/main
+   696c98a..7027556  theirwork  -> origin/theirwork
+Updating 51c98ca..113860a
+Fast-forward
+ pages/gallery.html | 23 [32m+++++++++++++++++[m[31m------[m
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site]2;McKay@Adas-MacBook-Pro]1;..roup-fan-site]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site[0m[27m[24m[J[01;32m➜  [36mgroup-fan-site[00m [01;34mgit:([31mmain[34m)[00m [K[?1h=[?2004hggit pull[?1l>[?2004l
+]2;git pull]1;gitremote: Enumerating objects: 15, done.[K
+remote: Counting objects:   6% (1/15)[Kremote: Counting objects:  13% (2/15)[Kremote: Counting objects:  20% (3/15)[Kremote: Counting objects:  26% (4/15)[Kremote: Counting objects:  33% (5/15)[Kremote: Counting objects:  40% (6/15)[Kremote: Counting objects:  46% (7/15)[Kremote: Counting objects:  53% (8/15)[Kremote: Counting objects:  60% (9/15)[Kremote: Counting objects:  66% (10/15)[Kremote: Counting objects:  73% (11/15)[Kremote: Counting objects:  80% (12/15)[Kremote: Counting objects:  86% (13/15)[Kremote: Counting objects:  93% (14/15)[Kremote: Counting objects: 100% (15/15)[Kremote: Counting objects: 100% (15/15), done.[K
+remote: Compressing objects:  16% (1/6)[Kremote: Compressing objects:  33% (2/6)[Kremote: Compressing objects:  50% (3/6)[Kremote: Compressing objects:  66% (4/6)[Kremote: Compressing objects:  83% (5/6)[Kremote: Compressing objects: 100% (6/6)[Kremote: Compressing objects: 100% (6/6), done.[K
+remote: Total 10 (delta 5), reused 9 (delta 4), pack-reused 0[K
+Unpacking objects:  10% (1/10)Unpacking objects:  20% (2/10)Unpacking objects:  30% (3/10)Unpacking objects:  40% (4/10)Unpacking objects:  50% (5/10)Unpacking objects:  60% (6/10)Unpacking objects:  70% (7/10)Unpacking objects:  80% (8/10)Unpacking objects:  90% (9/10)Unpacking objects: 100% (10/10)Unpacking objects: 100% (10/10), 1.19 KiB | 87.00 KiB/s, done.
+From https://github.com/nadxelleHernandez/group-fan-site
+   113860a..8c90200  main       -> origin/main
+Updating 113860a..8c90200
+Fast-forward
+ pages/facts.html      |  2 [32m+[m[31m-[m
+ stylesheets/index.css | 17 [32m+++++++++++++++++[m
+ 2 files changed, 18 insertions(+), 1 deletion(-)
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site]2;McKay@Adas-MacBook-Pro]1;..roup-fan-site]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/group-fan-site[0m[27m[24m[J[01;32m➜  [36mgroup-fan-site[00m [01;34mgit:([31mmain[34m)[00m [K[?1h=[?2004hccd ..[?1l>[?2004l
+]2;cd ..]1;cd[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects]2;McKay@Adas-MacBook-Pro]1;..oper/projects]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects[0m[27m[24m[J[01;32m➜  [36mprojects[00m [K[?1h=[?2004hccd retro-video-store[1m/[0m[0m [?1l>[?2004l
+]2;cd retro-video-store]1;cd[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;32m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hccode .[?1l>[?2004l
+]2;code .]1;code[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;32m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hfflask videos get_all_videos[?1l>[?2004l
+]2;flask videos get_all_videos]1;flask[{'id': 1, 'title': 'Glass Onion', 'release_date': datetime.datetime(2022, 11, 11, 0, 0), 'total_inventory': 15}, {'id': 2, 'title': 'The Menu', 'release_date': datetime.datetime(2022, 12, 15, 0, 0), 'total_inventory': 5}, {'id': 3, 'title': 'Elf', 'release_date': datetime.datetime(2000, 1, 8, 0, 0), 'total_inventory': 20}]
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;32m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hFFLAK SK_ENV=development flask run[?1l>[?2004l
+]2;FLASK_ENV=development flask run]1;flask * Environment: development
+ * Debug mode: on
+Traceback (most recent call last):
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/bin/flask", line 8, in <module>
+    sys.exit(main())
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/flask/cli.py", line 967, in main
+    cli.main(args=sys.argv[1:], prog_name="python -m flask" if as_module else None)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/flask/cli.py", line 586, in main
+    return super(FlaskGroup, self).main(*args, **kwargs)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 782, in main
+    rv = self.invoke(ctx)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 1259, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 1066, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 610, in invoke
+    return callback(*args, **kwargs)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/decorators.py", line 73, in new_func
+    return ctx.invoke(f, obj, *args, **kwargs)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 610, in invoke
+    return callback(*args, **kwargs)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/flask/cli.py", line 852, in run_command
+    run_simple(
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/werkzeug/serving.py", line 1030, in run_simple
+    s.bind(server_address)
+OSError: [Errno 48] Address already in use
+Welcome to my store
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;31m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;31m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004hFLASK_ENV=development flask run[?1l>[?2004l
+]2;FLASK_ENV=development flask run]1;flask * Environment: development
+ * Debug mode: on
+Traceback (most recent call last):
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/bin/flask", line 8, in <module>
+    sys.exit(main())
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/flask/cli.py", line 967, in main
+    cli.main(args=sys.argv[1:], prog_name="python -m flask" if as_module else None)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/flask/cli.py", line 586, in main
+    return super(FlaskGroup, self).main(*args, **kwargs)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 782, in main
+    rv = self.invoke(ctx)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 1259, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 1066, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 610, in invoke
+    return callback(*args, **kwargs)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/decorators.py", line 73, in new_func
+    return ctx.invoke(f, obj, *args, **kwargs)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/click/core.py", line 610, in invoke
+    return callback(*args, **kwargs)
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/flask/cli.py", line 852, in run_command
+    run_simple(
+  File "/Users/McKay/Developer/projects/retro-video-store/venv/lib/python3.10/site-packages/werkzeug/serving.py", line 1030, in run_simple
+    s.bind(server_address)
+OSError: [Errno 48] Address already in use
+Welcome to my store
+[1m[7m%[27m[1m[0m                                                                                    ]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store]2;McKay@Adas-MacBook-Pro]1;..o-video-store]7;file://Adas-MacBook-Pro.local/Users/McKay/Developer/projects/retro-video-store[0m[27m[24m[J[01;31m➜  [36mretro-video-store[00m [01;34mgit:([31mCLI-development[34m) [33m✗[00m [K[?1h=[?2004h

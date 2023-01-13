@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
+import click
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -32,11 +33,30 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     #Register Blueprints Here
-    from .rental_routes import rentals_bp
-    from .video_routes import videos_bp
-    from .customer_routes import customers_bp
+    from .routes.rental_routes import rentals_bp
+    from .routes.video_routes import videos_bp
+    from .routes.customer_routes import customers_bp
     app.register_blueprint(videos_bp)
     app.register_blueprint(customers_bp)
     app.register_blueprint(rentals_bp)
+
+    click.echo('Welcome to my store')
+
+
+    @app.cli.command('hello')
+    @click.option('--name', default='World')
+    def hello_command(name):
+        click.echo(f'Hello, {name}!')
+
+    def test_hello():
+        runner = app.test_cli_runner()
+
+        # invoke the command directly
+        result = runner.invoke(hello_command, ['--name', 'Flask'])
+        assert 'Hello, Flask' in result.output
+
+        # or by name
+        result = runner.invoke(args=['hello'])
+        assert 'World' in result.output
 
     return app
