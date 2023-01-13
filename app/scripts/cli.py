@@ -16,3 +16,5 @@ def web(host: str, port: int):
 if __name__ == '__main__':
     print('Running from cli.py')
     web()
+    #TODO - create CLI script in main
+    #main()
