@@ -40,23 +40,4 @@ def create_app(test_config=None):
     app.register_blueprint(customers_bp)
     app.register_blueprint(rentals_bp)
 
-    click.echo('Welcome to my store')
-
-
-    @app.cli.command('hello')
-    @click.option('--name', default='World')
-    def hello_command(name):
-        click.echo(f'Hello, {name}!')
-
-    def test_hello():
-        runner = app.test_cli_runner()
-
-        # invoke the command directly
-        result = runner.invoke(hello_command, ['--name', 'Flask'])
-        assert 'Hello, Flask' in result.output
-
-        # or by name
-        result = runner.invoke(args=['hello'])
-        assert 'World' in result.output
-
     return app

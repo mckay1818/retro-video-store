@@ -10,7 +10,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'script = app.scripts.script:cli',
+            'script = app.scripts.cli:cli',
         ],
     },
 )
