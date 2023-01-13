@@ -1,4 +1,5 @@
 alembic==1.5.4
+-e git+https://github.com/mckay1818/retro-video-store.git@ca09c9eefdd08ecca193e22855c9712881e56d8a#egg=app
 attrs==21.2.0
 autopep8==1.5.5
 blinker==1.4
@@ -15,6 +16,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 Mako==1.1.4
 MarkupSafe==1.1.1
+more-click==0.1.2
 packaging==21.2
 pluggy==1.0.0
 psycopg2-binary==2.9.4
